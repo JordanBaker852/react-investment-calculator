@@ -4,8 +4,6 @@ export default function Results({ userInput }) {
     const resultsData = calculateInvestmentResults(userInput);
     const initalInvestment = resultsData[0].valueEndOfYear - resultsData[0].interest - resultsData[0].annualInvestment;
 
-    console.log(resultsData);
-
     return (
         <table id="result">
             <thead>
@@ -20,12 +18,13 @@ export default function Results({ userInput }) {
             <tbody>
                 {resultsData.map(({ year, interest, valueEndOfYear, annualInvestment }) => {
                     const totalInterest = valueEndOfYear - annualInvestment * year - initalInvestment;
+                    const totalAmountInvested = valueEndOfYear - totalInterest;
                     return <tr key={year}>
                         <td>{year}</td>
                         <td>{formatter.format(valueEndOfYear)}</td>
                         <td>{formatter.format(interest)}</td>
-                        <td>{formatter.format(annualInvestment)}</td>
                         <td>{formatter.format(totalInterest)}</td>
+                        <td>{formatter.format(totalAmountInvested)}</td>
                     </tr>
                 })}
             </tbody>
